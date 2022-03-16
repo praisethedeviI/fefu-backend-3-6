@@ -48,7 +48,7 @@ services:
             - "5050:80"
         environment:
             - GUNICORN_THREADS=1
-            - PGADMIN_DEFAULT_EMAIL=stas.nagornov200@email.com
+            - PGADMIN_DEFAULT_EMAIL=stas.nagornov200@gmail.com
             - PGADMIN_DEFAULT_PASSWORD=1111
         networks:
             - sail
