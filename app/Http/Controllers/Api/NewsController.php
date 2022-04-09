@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Resources\NewsResource;
 use App\Models\News;
-use App\Http\Resources\NewsResources;
 use App\OpenApi\Responses\ListNewsResponse;
 use App\OpenApi\Responses\NotFoundResponse;
 use App\OpenApi\Responses\ShowNewsResponse;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\ClassString;
 use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 
 #[OpenApi\PathItem]
-class NewsApiController extends Controller
+class NewsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +23,7 @@ class NewsApiController extends Controller
     #[OpenApi\Response(factory: ListNewsResponse::class, statusCode: 200)]
     public function index()
     {
-        return NewsResources::collection(
+        return NewsResource::collection(
             News::query()->published()->paginate(5)
         );
     }
@@ -40,7 +39,7 @@ class NewsApiController extends Controller
     #[OpenApi\Response(factory: NotFoundResponse::class, statusCode: 404)]
     public function show(string $slug)
     {
-        return new NewsResources(
+        return new NewsResource(
             News::query()->published()->where('slug', $slug)->firstOrFail()
         );
     }

@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
-use App\Models\News;
+use App\Http\Controllers\Controller;
+use App\Models\Page;
 use Illuminate\Http\Request;
+use function abort;
+use function view;
 
-class NewsWebController extends Controller
+class PageController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -15,13 +18,13 @@ class NewsWebController extends Controller
      */
     public function __invoke(Request $request, string $slug)
     {
-        $news = News::query()
+        $page = Page::query()
             ->where('slug', $slug)
             ->first();
-        if ($news === null)
+        if ($page === null)
         {
             abort(404);
         }
-        return view('news', ['news' => $news]);
+        return view('page', ['page' => $page]);
     }
 }

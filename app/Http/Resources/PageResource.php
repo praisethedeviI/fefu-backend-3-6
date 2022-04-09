@@ -2,13 +2,13 @@
 
 namespace App\Http\Resources;
 
-use App\Models\News;
+use App\Models\Page;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin News
+ * @mixin Page
  */
-class NewsResources extends JsonResource
+class PageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,7 +21,6 @@ class NewsResources extends JsonResource
         return [
             'title' => $this->title,
             'text' => $this->text,
-            'published_at' => $this->published_at,
             'slug' => $this->slug
         ];
     }
