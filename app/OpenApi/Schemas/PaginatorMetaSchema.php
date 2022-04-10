@@ -20,18 +20,19 @@ class PaginatorMetaSchema extends SchemaFactory implements Reusable
     {
         return Schema::object('PaginatorMeta')
             ->properties(
-                Schema::integer('current'),
+                Schema::integer('current_page'),
                 Schema::integer('from'),
                 Schema::integer('last_page'),
-                Schema::integer('path'),
-                Schema::integer('per_page'),
-                Schema::integer('to'),
-                Schema::integer('total'),
                 Schema::array('links')->items(Schema::object()->properties(
                     Schema::string('url')->nullable(),
                     Schema::string('label'),
                     Schema::boolean('active'),
                 )),
+                Schema::string('path'),
+                Schema::integer('per_page'),
+                Schema::integer('to'),
+                Schema::integer('total'),
+
             );
     }
 }

@@ -43,5 +43,4 @@ class NewsController extends Controller
             News::query()->published()->where('slug', $slug)->firstOrFail()
         );
     }
-
 }

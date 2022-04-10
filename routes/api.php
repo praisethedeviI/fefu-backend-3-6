@@ -25,7 +25,7 @@ Route::apiResource('news', NewsController::class)->only([
     'show',
 ]);
 
-Route::apiResource('page', PageController::class)->only([
+Route::apiResource('pages', PageController::class)->only([
     'index',
     'show'
 ]);
