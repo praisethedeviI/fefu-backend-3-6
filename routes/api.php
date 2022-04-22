@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AppealController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\PageController;
 use Illuminate\Http\Request;
@@ -29,3 +30,5 @@ Route::apiResource('pages', PageController::class)->only([
     'index',
     'show'
 ]);
+
+Route::post('appeal', [AppealController::class, 'send'])->name('appeal.api.send');
