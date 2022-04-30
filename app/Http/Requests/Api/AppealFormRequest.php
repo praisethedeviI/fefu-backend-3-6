@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api;
 
+use App\Http\Requests\BaseAppealFormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use function response;
 
-class AppealApiRequest extends AppealFormRequest
+class AppealFormRequest extends BaseAppealFormRequest
 {
     protected function failedValidation(Validator $validator)
     {

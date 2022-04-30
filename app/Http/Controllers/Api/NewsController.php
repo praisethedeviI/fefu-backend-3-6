@@ -19,7 +19,7 @@ class NewsController extends Controller
      *
      * @return Responsable
      */
-    #[OpenApi\Operation]
+    #[OpenApi\Operation(tags: ['news'], method: 'GET')]
     #[OpenApi\Response(factory: ListNewsResponse::class, statusCode: 200)]
     public function index()
     {
@@ -34,7 +34,7 @@ class NewsController extends Controller
      * @param string $slug
      * @return NewsResource|Responsable
      */
-    #[OpenApi\Operation]
+    #[OpenApi\Operation(tags: ['news'], method: 'GET')]
     #[OpenApi\Response(factory: ShowNewsResponse::class, statusCode: 200)]
     #[OpenApi\Response(factory: NotFoundResponse::class, statusCode: 404)]
     public function show(string $slug): NewsResource|Responsable

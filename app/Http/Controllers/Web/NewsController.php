@@ -25,7 +25,7 @@ class NewsController extends Controller
             ->published()
             ->orderBy('published_at', 'desc')
             ->paginate(5);
-        return view('news_list', ['news_list' => $news_list]);
+        return view('news.news_list', ['news_list' => $news_list]);
     }
 
     /**
@@ -45,6 +45,6 @@ class NewsController extends Controller
         {
             abort(404);
         }
-        return view('news', ['news' => $news]);
+        return view('news.news', ['news' => $news]);
     }
 }

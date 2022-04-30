@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Database\Factories\UserFactory;
 use Eloquent;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Hash;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,6 +49,16 @@ use Laravel\Sanctum\PersonalAccessToken;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    public static function createFromRequest($data) : self
+    {
+        $user = new self();
+        $user->name = $data['name'] ?? null;
+        $user->email = $data['email'] ?? null;
+        $user->password = Hash::make($data['password'] ?? null);
+        $user->save();
+        return $user;
+    }
 
     /**
      * The attributes that are mass assignable.

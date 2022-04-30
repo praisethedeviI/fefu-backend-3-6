@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AppealFormRequest;
+use App\Http\Requests\BaseAppealFormRequest;
 use App\Models\Appeal;
 use App\Sanitizers\PhoneSanitizer;
 use Illuminate\Contracts\Foundation\Application;
@@ -27,10 +27,10 @@ class AppealController extends Controller
     /**
      * Send form.
      *
-     * @param AppealFormRequest $request
+     * @param BaseAppealFormRequest $request
      * @return Application|Factory|View
      */
-    public function send(AppealFormRequest $request): Redirector|Application|RedirectResponse
+    public function send(BaseAppealFormRequest $request): Redirector|Application|RedirectResponse
     {
         $data = $request->validated();
 

@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\Api\AppealController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\PageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +20,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:sanctum')->get('/user',
+    function (Request $request) {
+        return $request->user();
+    });
 
 Route::apiResource('news', NewsController::class)->only([
     'index',
@@ -32,3 +36,7 @@ Route::apiResource('pages', PageController::class)->only([
 ]);
 
 Route::post('appeal', [AppealController::class, 'send'])->name('appeal.api.send');
+
+Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('register', [AuthController::class, 'register']);
