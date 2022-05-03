@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $text
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static NewsFactory factory(...$parameters)
+ * @method static \Database\Factories\NewsFactory factory(...$parameters)
  * @method static Builder|News findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static Builder|News newModelQuery()
  * @method static Builder|News newQuery()

@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $message
  * @property int|null $user_id
  * @property-read \App\Models\User|null $user
- * @method static AppealFactory factory(...$parameters)
  * @method static Builder|Appeal newModelQuery()
  * @method static Builder|Appeal newQuery()
  * @method static Builder|Appeal query()
