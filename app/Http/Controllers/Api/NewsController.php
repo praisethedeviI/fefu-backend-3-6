@@ -31,13 +31,13 @@ class NewsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  string $slug
-     * @return Responsable
+     * @param string $slug
+     * @return NewsResource|Responsable
      */
     #[OpenApi\Operation]
     #[OpenApi\Response(factory: ShowNewsResponse::class, statusCode: 200)]
     #[OpenApi\Response(factory: NotFoundResponse::class, statusCode: 404)]
-    public function show(string $slug)
+    public function show(string $slug): NewsResource|Responsable
     {
         return new NewsResource(
             News::query()->published()->where('slug', $slug)->firstOrFail()
