@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AppealApiRequest;
+use App\Http\Requests\Api\AppealFormRequest;
 use App\Models\Appeal;
 use App\OpenApi\Parameters\AppealParameters;
 use App\OpenApi\Responses\AppealFailedResponse;
@@ -18,14 +18,14 @@ class AppealController extends Controller
     /**
      * Send params to make appeal form.
      *
-     * @param AppealApiRequest $request
+     * @param AppealFormRequest $request
      * @return JsonResponse
      */
-    #[OpenApi\Operation]
+    #[OpenApi\Operation(tags: ['appeal'], method: 'POST')]
     #[OpenApi\Response(factory: AppealSuccessResponse::class, statusCode: 200)]
     #[OpenApi\Response(factory: AppealFailedResponse::class, statusCode: 422)]
     #[OpenApi\Parameters(factory: AppealParameters::class)]
-    public function send(AppealApiRequest $request): JsonResponse
+    public function send(AppealFormRequest $request): JsonResponse
     {
         $data = $request->validated();
 

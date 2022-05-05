@@ -19,7 +19,7 @@ class PageController extends Controller
      *
      * @return Responsable
      */
-    #[OpenApi\Operation]
+    #[OpenApi\Operation(tags: ['page'], method: 'GET')]
     #[OpenApi\Response(factory: ListPageResponse::class, statusCode: 200)]
     public function index(): Responsable
     {
@@ -34,7 +34,7 @@ class PageController extends Controller
      * @param string $slug
      * @return Responsable|PageResource
      */
-    #[OpenApi\Operation]
+    #[OpenApi\Operation(tags: ['page'], method: 'GET')]
     #[OpenApi\Response(factory: ShowPageResponse::class, statusCode: 200)]
     #[OpenApi\Response(factory: NotFoundResponse::class, statusCode: 404)]
     public function show(string $slug): Responsable|PageResource
