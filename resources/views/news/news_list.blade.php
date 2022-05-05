@@ -11,5 +11,6 @@
     <p>{{ $news->text }}</p>
     <p>{{ $news->published_at }}</p>
 @endforeach
+{{ $news_list->links() }}
 </body>
 </html>
