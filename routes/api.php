@@ -6,7 +6,6 @@ use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\PageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 
 
 /*

@@ -126,6 +126,22 @@ namespace App\Models{
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @mixin Eloquent
+ * @property string|null $github_id
+ * @property \Illuminate\Support\Carbon|null $github_logged_in_at
+ * @property \Illuminate\Support\Carbon|null $github_registered_at
+ * @property string|null $discord_id
+ * @property \Illuminate\Support\Carbon|null $discord_logged_in_at
+ * @property \Illuminate\Support\Carbon|null $discord_registered_at
+ * @property \Illuminate\Support\Carbon|null $app_logged_in_at
+ * @property \Illuminate\Support\Carbon|null $app_registered_at
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAppLoggedInAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAppRegisteredAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDiscordId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDiscordLoggedInAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDiscordRegisteredAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGithubId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGithubLoggedInAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGithubRegisteredAt($value)
  */
 	class IdeHelperUser {}
 }

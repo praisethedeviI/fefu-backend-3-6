@@ -7,7 +7,25 @@
 </head>
 <body>
 <h1>Profile</h1>
-<p>{{ $user->name }}</p>
+<div>
+    <h4>App:</h4>
+    <label>
+        <b> Last login date: {{ $user['app_logged_in_at'] ?? 'Never' }}</b>
+        <b> Registration date: {{ $user['app_registered_at'] ?? 'Never' }}</b>
+    </label>
+    <h3>OAuth info:</h3>
+    <h4>Github:</h4>
+    <label>
+        <b> Last login date: {{ $user['github_logged_in_at'] ?? 'Never' }}</b>
+        <b> Registration date: {{ $user['github_registered_at'] ?? 'Never' }}</b>
+    </label>
+    <h4>Discord:</h4>
+    <label>
+        <b> Last login date: {{ $user['discord_logged_in_at'] ?? 'Never' }}</b>
+        <b> Registration date: {{ $user['discord_registered_at'] ?? 'Never' }}</b>
+    </label>
+</div>
+<p>{{ $user['name'] }}</p>
 <form action="{{ route('logout') }}" method="post">
     @csrf
     <button type="submit">Logout</button>

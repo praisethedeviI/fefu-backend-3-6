@@ -56,8 +56,19 @@ class User extends Authenticatable
         $user->name = $data['name'] ?? null;
         $user->email = $data['email'] ?? null;
         $user->password = Hash::make($data['password'] ?? null);
+        $user->app_registered_at = Carbon::now();
+        $user->app_logged_in_at = Carbon::now();
         $user->save();
         return $user;
+    }
+
+    public function updateFromRequest($data) : self
+    {
+        $this->password = Hash::make($data['password']);
+        $this->app_registered_at = Carbon::now();
+        $this->app_logged_in_at = Carbon::now();
+        $this->save();
+        return $this;
     }
 
     /**
@@ -69,6 +80,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'app_logged_in_at',
+        'app_registered_at',
+        'github_id',
+        'github_logged_in_at',
+        'github_registered_at',
+        'discord_logged_in_at',
+        'discord_registered_at',
+        'discord_id',
     ];
 
     /**
@@ -79,6 +98,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'github_id',
+        'discord_id',
     ];
 
     /**
@@ -87,6 +108,12 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        'app_logged_in_at' => 'datetime',
+        'app_registered_at' => 'datetime',
         'email_verified_at' => 'datetime',
+        'github_logged_in_at' => 'datetime',
+        'github_registered_at' => 'datetime',
+        'discord_logged_in_at' => 'datetime',
+        'discord_registered_at' => 'datetime',
     ];
 }

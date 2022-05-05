@@ -28,6 +28,9 @@
         <input type="submit"/>
     </div>
 </form>
+<a href="{{ route('oauth.redirect', ['provider' => 'discord']) }}">Login through Discord</a>
+<br>
+<a href="{{ route('oauth.redirect', ['provider' => 'github']) }}">Login through GitHub</a>
 </body>
 </html>
 
