@@ -3,6 +3,7 @@
 use App\Http\Controllers\Web\AppealController;
 use App\Http\Controllers\Web\AuthController;
 use App\Http\Controllers\Web\NewsController;
+use App\Http\Controllers\Web\OAuthController;
 use App\Http\Controllers\Web\PageController;
 use App\Http\Controllers\Web\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/register', [AuthController::class, 'registerForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+
+Route::prefix('/oauth')->group(function () {
+    Route::get('/{provider}/redirect', [OAuthController::class, 'redirectToService'])->name('oauth.redirect');
+    Route::get('/{provider}/login', [OAuthController::class, 'login'])->name('oauth.login');
+});
 
 Route::get('/{slug}', PageController::class);
 
