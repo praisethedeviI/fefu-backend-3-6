@@ -18,7 +18,7 @@ use Illuminate\Support\Carbon;
  * @property string $text
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @method static PageFactory factory(...$parameters)
+ * @method static \Database\Factories\PageFactory factory(...$parameters)
  * @method static Builder|Page findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static Builder|Page newModelQuery()
  * @method static Builder|Page newQuery()

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Web\AppealController;
 use App\Http\Controllers\Web\AuthController;
+use App\Http\Controllers\Web\CatalogController;
 use App\Http\Controllers\Web\NewsController;
 use App\Http\Controllers\Web\OAuthController;
 use App\Http\Controllers\Web\PageController;
@@ -26,6 +27,8 @@ Route::resource('news', NewsController::class)->only([
     'index',
     'show'
 ]);
+
+Route::get('/catalog/{slug?}', [CatalogController::class, 'index'])->name('catalog');
 
 Route::get('/appeal', [AppealController::class, 'form'])->name('appeal.form');
 Route::post('/appeal', [AppealController::class, 'send'])->name('appeal.send');

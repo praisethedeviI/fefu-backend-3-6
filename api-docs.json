@@ -82,6 +82,72 @@
                 }
             }
         },
+        "\/api\/categories": {
+            "get": {
+                "tags": [
+                    "catalog"
+                ],
+                "summary": "Display catalog of product categories.",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/ProductCategory"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/categories\/{category}": {
+            "get": {
+                "tags": [
+                    "catalog"
+                ],
+                "summary": "Display the specified product category.",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/ProductCategory"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
         "\/api\/pages": {
             "get": {
                 "tags": [
@@ -327,7 +393,13 @@
                         "content": {
                             "application\/json": {
                                 "schema": {
-                                    "type": "array"
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "default": "Successfully logged out",
+                                            "type": "string"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -569,6 +641,21 @@
                     }
                 }
             },
+            "ProductCategory": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "parent_id": {
+                        "type": "integer",
+                        "nullable": true
+                    }
+                }
+            },
             "PaginatorLinks": {
                 "type": "object",
                 "properties": {
@@ -606,6 +693,10 @@
         {
             "name": "auth",
             "description": "Auth"
+        },
+        {
+            "name": "catalog",
+            "description": "Catalog"
         }
     ]
 }

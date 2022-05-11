@@ -58,7 +58,7 @@ class AuthController extends Controller
         $user = Auth::user();
         $user->currentAccessToken()->delete();
 
-        return response()->json([], 200);
+        return response()->json(['message' => 'Successfully logged out'], 200);
     }
 
     /**
