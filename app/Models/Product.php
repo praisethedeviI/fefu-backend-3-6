@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @mixin IdeHelperProduct
  */
-class   Product extends Model
+class Product extends Model
 {
     use HasFactory, Sluggable;
 

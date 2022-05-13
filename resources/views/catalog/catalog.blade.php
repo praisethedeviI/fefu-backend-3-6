@@ -4,6 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Categories</title>
+    <style>
+        div span a svg, div span span svg {
+            width: 10%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
     Catalog

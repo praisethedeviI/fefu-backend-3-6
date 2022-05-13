@@ -42,6 +42,10 @@ return [
                 [
                     'name' => 'catalog',
                     'description' => 'Catalog'
+                ],
+                [
+                    'name' => 'product',
+                    'description' => 'Product'
                 ]
 
             ],

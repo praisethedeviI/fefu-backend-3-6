@@ -220,6 +220,103 @@
                 }
             }
         },
+        "\/api\/catalog\/product\/list": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "Display a paginated list of category products.",
+                "parameters": [
+                    {
+                        "name": "category_slug",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "price": {
+                                                        "format": "double",
+                                                        "type": "number"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "links": {
+                                            "$ref": "#\/components\/schemas\/PaginatorLinks"
+                                        },
+                                        "meta": {
+                                            "$ref": "#\/components\/schemas\/PaginatorMeta"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "\/api\/catalog\/product\/details": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "Display the specified product with attributes and description.",
+                "parameters": [
+                    {
+                        "name": "product_slug",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/Product"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
         "\/api\/appeal": {
             "post": {
                 "tags": [
@@ -585,6 +682,41 @@
                     }
                 }
             },
+            "Product": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "format": "double",
+                        "type": "number"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "$ref": "#\/components\/schemas\/ProductCategory"
+                    },
+                    "attributes": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "value": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "WrongAppeal": {
                 "type": "object",
                 "properties": {
@@ -697,6 +829,10 @@
         {
             "name": "catalog",
             "description": "Catalog"
+        },
+        {
+            "name": "product",
+            "description": "Product"
         }
     ]
 }
