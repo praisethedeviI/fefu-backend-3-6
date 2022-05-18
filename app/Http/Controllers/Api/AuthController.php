@@ -8,7 +8,6 @@ use App\Http\Requests\Api\RegisterFormRequest;
 use App\Models\User;
 use App\OpenApi\Parameters\Auth\LoginParameters;
 use App\OpenApi\Parameters\Auth\RegisterParameters;
-use App\OpenApi\Responses\Auth\LoginFailedResponse;
 use App\OpenApi\Responses\Auth\UnauthenticatedResponse;
 use App\OpenApi\Responses\Auth\TokenSuccessResponse;
 use App\OpenApi\Responses\Auth\LogoutSuccessResponse;

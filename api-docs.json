@@ -220,7 +220,7 @@
                 }
             }
         },
-        "\/api\/catalog\/product\/list": {
+        "\/api\/products": {
             "get": {
                 "tags": [
                     "product"
@@ -233,6 +233,37 @@
                         "required": false,
                         "schema": {
                             "type": "string"
+                        }
+                    },
+                    {
+                        "name": "search_query",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort_mode",
+                        "in": "query",
+                        "description": "0 - price asc, 1 - price desc",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "filters",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 ],
@@ -267,6 +298,108 @@
                                         },
                                         "meta": {
                                             "$ref": "#\/components\/schemas\/PaginatorMeta"
+                                        },
+                                        "filters": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/Filter"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "\/api\/catalog\/product\/list": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "Display a paginated list of category products.",
+                "parameters": [
+                    {
+                        "name": "category_slug",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "search_query",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort_mode",
+                        "in": "query",
+                        "description": "0 - price asc, 1 - price desc",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "filters",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "price": {
+                                                        "format": "double",
+                                                        "type": "number"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "links": {
+                                            "$ref": "#\/components\/schemas\/PaginatorLinks"
+                                        },
+                                        "meta": {
+                                            "$ref": "#\/components\/schemas\/PaginatorMeta"
+                                        },
+                                        "filters": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/Filter"
+                                            }
                                         }
                                     }
                                 }
@@ -620,6 +753,37 @@
     },
     "components": {
         "schemas": {
+            "Filter": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "integer"
+                    },
+                    "options": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "value": {
+                                    "type": "string"
+                                },
+                                "isSelected": {
+                                    "type": "boolean"
+                                },
+                                "productCount": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "Page": {
                 "type": "object",
                 "properties": {
