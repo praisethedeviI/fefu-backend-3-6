@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CatalogResource;
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\PageResource;
 use App\Models\ProductCategory;
 use App\OpenApi\Responses\CatalogResponse;
@@ -25,7 +25,7 @@ class CatalogController extends Controller
     #[OpenApi\Response(factory: CatalogResponse::class, statusCode: 200)]
     public function index()
     {
-        return CatalogResource::collection(
+        return CategoryResource::collection(
             ProductCategory::query()->get(),
         );
     }
@@ -34,14 +34,14 @@ class CatalogController extends Controller
      * Display the specified product category.
      *
      * @param string $slug
-     * @return CatalogResource|Responsable
+     * @return CategoryResource|Responsable
      */
     #[OpenApi\Operation(tags: ['catalog'], method: 'GET')]
     #[OpenApi\Response(factory: ProductCategoryResponse::class, statusCode: 200)]
     #[OpenApi\Response(factory: NotFoundResponse::class, statusCode: 404)]
-    public function show(string $slug): CatalogResource|Responsable
+    public function show(string $slug): CategoryResource|Responsable
     {
-        return new CatalogResource(
+        return new CategoryResource(
             ProductCategory::query()->where('slug', $slug)->firstOrFail()
         );
     }

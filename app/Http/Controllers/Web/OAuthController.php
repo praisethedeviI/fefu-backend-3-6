@@ -29,8 +29,7 @@ class OAuthController extends Controller
 
     private function getValidatedProvider(string $provider): string
     {
-        if (!in_array($provider, self::ALLOWED_PROVIDERS, true))
-        {
+        if (!in_array($provider, self::ALLOWED_PROVIDERS, true)) {
             abort(404);
         }
         return $provider;
@@ -42,6 +41,7 @@ class OAuthController extends Controller
         try {
             $result = Socialite::driver($provider)
                 ->scopes(config('services.' . $provider . '.scopes'))
+                ->redirectUrl(route('oauth.login', ['provider' => $provider]))
                 ->redirect();
         } catch (Throwable $exception) {
             $result = $this->processOAuthException($exception, $provider);
@@ -55,7 +55,9 @@ class OAuthController extends Controller
         $provider = $this->getValidatedProvider($provider);
 
         try {
-            $oauthUser = Socialite::driver($provider)->user();
+            $oauthUser = Socialite::driver($provider)
+                ->redirectUrl(route('oauth.login', ['provider' => $provider]))
+                ->user();
         } catch (Throwable $exception) {
             return $this->processOAuthException($exception, $provider);
         }

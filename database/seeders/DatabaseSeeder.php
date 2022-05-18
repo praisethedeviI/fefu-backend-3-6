@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\ProductCategory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +18,9 @@ class DatabaseSeeder extends Seeder
             PageSeeder::class,
             NewsSeeder::class,
             ProductCategorySeeder::class,
+            ProductAttributeSeeder::class,
+            ProductSeeder::class,
+            ProductAttributeValueSeeder::class,
         ]);
     }
 }
