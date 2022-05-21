@@ -54,7 +54,7 @@
     <a href="{{ route('product', $product->slug) }}">
         <h3>{{ $product->name }}</h3>
     </a>
-    <p>{{ $product->price }}</p>
+    <p>{{ $product->price }} rub.</p>
 @endforeach
 {{ $products->links() }}
 

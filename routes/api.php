@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AppealController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CatalogController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\PageController;
@@ -45,6 +46,13 @@ Route::apiResource('pages', PageController::class)->only([
 Route::prefix('catalog')->group(function () {
     Route::get('product/list', [ProductController::class, 'index']);
     Route::get('product/details', [ProductController::class, 'show']);
+});
+
+
+
+Route::prefix('cart')->middleware('auth.optional:sanctum')->group(function () {
+    Route::post('set_quantity', [CartController::class, 'setQuantity']);
+    Route::get('show', [CartController::class, 'show']);
 });
 
 Route::post('appeal', [AppealController::class, 'send'])->name('appeal.api.send');
