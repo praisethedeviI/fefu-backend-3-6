@@ -3,6 +3,7 @@
 namespace App\OpenApi\Responses\Product;
 
 use App\OpenApi\Schemas\FilterSchema;
+use App\OpenApi\Schemas\ListProductSchema;
 use App\OpenApi\Schemas\PaginatorLinksSchema;
 use App\OpenApi\Schemas\PaginatorMetaSchema;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
@@ -16,11 +17,7 @@ class   ListProductResponse extends ResponseFactory
     {
         return Response::ok()->description('Successful response')->content(
             MediaType::json()->schema(Schema::object()->properties(
-                Schema::array('data')->items(Schema::object()->properties(
-                    Schema::string('name'),
-                    Schema::number('price')->format('double'),
-                    Schema::string('slug')
-                )),
+                Schema::array('data')->items(ListProductSchema::ref()),
                 PaginatorLinksSchema::ref('links'),
                 PaginatorMetaSchema::ref('meta'),
                 Schema::array('filters')->items(

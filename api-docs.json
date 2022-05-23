@@ -220,102 +220,6 @@
                 }
             }
         },
-        "\/api\/products": {
-            "get": {
-                "tags": [
-                    "product"
-                ],
-                "summary": "Display a paginated list of category products.",
-                "parameters": [
-                    {
-                        "name": "category_slug",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "search_query",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "sort_mode",
-                        "in": "query",
-                        "description": "0 - price asc, 1 - price desc",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "filters",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "array",
-                                "items": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful response",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "name": {
-                                                        "type": "string"
-                                                    },
-                                                    "price": {
-                                                        "format": "double",
-                                                        "type": "number"
-                                                    },
-                                                    "slug": {
-                                                        "type": "string"
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        "links": {
-                                            "$ref": "#\/components\/schemas\/PaginatorLinks"
-                                        },
-                                        "meta": {
-                                            "$ref": "#\/components\/schemas\/PaginatorMeta"
-                                        },
-                                        "filters": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#\/components\/schemas\/Filter"
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found"
-                    }
-                }
-            }
-        },
         "\/api\/catalog\/product\/list": {
             "get": {
                 "tags": [
@@ -374,19 +278,7 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "name": {
-                                                        "type": "string"
-                                                    },
-                                                    "price": {
-                                                        "format": "double",
-                                                        "type": "number"
-                                                    },
-                                                    "slug": {
-                                                        "type": "string"
-                                                    }
-                                                }
+                                                "$ref": "#\/components\/schemas\/ListProduct"
                                             }
                                         },
                                         "links": {
@@ -446,6 +338,73 @@
                     },
                     "404": {
                         "description": "Not found"
+                    }
+                }
+            }
+        },
+        "\/api\/cart\/set_quantity": {
+            "post": {
+                "tags": [
+                    "cart"
+                ],
+                "summary": "Add products to cart and set quantity",
+                "requestBody": {
+                    "description": "Cart modification",
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "modifications": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "product_id": {
+                                                    "type": "integer"
+                                                },
+                                                "quantity": {
+                                                    "type": "integer"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/Cart"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/cart\/show": {
+            "get": {
+                "tags": [
+                    "cart"
+                ],
+                "summary": "Return cart by user or session",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/Cart"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -937,6 +896,37 @@
                     }
                 }
             },
+            "Cart": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "product": {
+                                    "$ref": "#\/components\/schemas\/ListProduct"
+                                },
+                                "quantity": {
+                                    "type": "integer"
+                                },
+                                "price_item": {
+                                    "format": "double",
+                                    "type": "number"
+                                },
+                                "price_total": {
+                                    "format": "double",
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    },
+                    "price_total": {
+                        "format": "double",
+                        "type": "number"
+                    }
+                }
+            },
             "ProductCategory": {
                 "type": "object",
                 "properties": {
@@ -970,6 +960,21 @@
                         "nullable": true
                     }
                 }
+            },
+            "ListProduct": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "format": "double",
+                        "type": "number"
+                    },
+                    "slug": {
+                        "type": "string"
+                    }
+                }
             }
         }
     },
@@ -997,6 +1002,10 @@
         {
             "name": "product",
             "description": "Product"
+        },
+        {
+            "name": "cart",
+            "description": "Cart"
         }
     ]
 }
