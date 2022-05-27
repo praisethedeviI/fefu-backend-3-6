@@ -57,7 +57,6 @@ class Product extends Model
      */
     public static function findProducts(array $requestData)
     {
-
         $slug = $requestData['slug'] ?? null;
 
         $categoryQuery = ProductCategory::query()
@@ -77,12 +76,11 @@ class Product extends Model
         if ($searchQuery) {
             $productQuery->search($searchQuery);
         }
-
         $sortMode = $requestData['sort_mode'] ?? null;
-        if ($sortMode === ProductSortType::PRICE_ASC) {
+        if (ProductSortType::keyToValue($sortMode) === ProductSortType::PRICE_ASC) {
             $productQuery->orderBy('price', 'asc');
 
-        } else if ($sortMode === ProductSortType::PRICE_DESC) {
+        } else if (ProductSortType::keyToValue($sortMode) === ProductSortType::PRICE_DESC) {
             $productQuery->orderBy('price', 'desc');
         }
 

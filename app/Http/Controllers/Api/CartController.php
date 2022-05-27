@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\OpenApi\Parameters\CartModificationParameters;
 use App\OpenApi\RequestBodies\CartModificationRequestBody;
 use App\OpenApi\Responses\Cart\ShowCartResponse;
+use App\OpenApi\SecuritySchemes\BearerTokenSecurityScheme;
 use Illuminate\Support\Facades\Auth;
 use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 
@@ -22,7 +23,7 @@ class CartController extends Controller
      * @param CartModificationRequest $request
      * @return CartResource
      */
-    #[OpenApi\Operation(tags: ['cart'], method: 'POST')]
+    #[OpenApi\Operation(tags: ['cart'], security: BearerTokenSecurityScheme::class, method: 'POST')]
     #[OpenApi\Response(factory: ShowCartResponse::class, statusCode: 200)]
     #[OpenApi\RequestBody(factory: CartModificationRequestBody::class)]
     public function setQuantity(CartModificationRequest $request): CartResource
@@ -49,7 +50,7 @@ class CartController extends Controller
      *
      * @return CartResource
      */
-    #[OpenApi\Operation(tags: ['cart'], method: 'GET')]
+    #[OpenApi\Operation(tags: ['cart'], security: BearerTokenSecurityScheme::class, method: 'GET')]
     #[OpenApi\Response(factory: ShowCartResponse::class, statusCode: 200)]
     public function show(): CartResource
     {

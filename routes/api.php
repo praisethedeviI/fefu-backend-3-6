@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CatalogController;
 use App\Http\Controllers\Api\NewsController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
@@ -48,14 +49,14 @@ Route::prefix('catalog')->group(function () {
     Route::get('product/details', [ProductController::class, 'show']);
 });
 
-
+Route::post('checkout', [OrderController::class, 'store'])->middleware('auth:sanctum');
 
 Route::prefix('cart')->middleware('auth.optional:sanctum')->group(function () {
     Route::post('set_quantity', [CartController::class, 'setQuantity']);
     Route::get('show', [CartController::class, 'show']);
 });
 
-Route::post('appeal', [AppealController::class, 'send'])->name('appeal.api.send');
+Route::post('appeal', [AppealController::class, 'send']);
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
