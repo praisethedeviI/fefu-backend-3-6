@@ -12,6 +12,7 @@ use App\OpenApi\Responses\Auth\UnauthenticatedResponse;
 use App\OpenApi\Responses\Auth\TokenSuccessResponse;
 use App\OpenApi\Responses\Auth\LogoutSuccessResponse;
 use App\OpenApi\Responses\Auth\ValidationFailedResponse;
+use App\OpenApi\SecuritySchemes\BearerTokenSecurityScheme;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,7 +50,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    #[OpenApi\Operation(tags: ['auth'], method: 'POST')]
+    #[OpenApi\Operation(tags: ['auth'], security: BearerTokenSecurityScheme::class, method: 'POST')]
     #[OpenApi\Response(factory: LogoutSuccessResponse::class, statusCode: 200)]
     #[OpenApi\Response(factory: UnauthenticatedResponse::class, statusCode: 401)]
     public function logout(Request $request): JsonResponse
