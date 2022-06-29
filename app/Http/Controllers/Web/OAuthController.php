@@ -8,7 +8,9 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
@@ -35,7 +37,7 @@ class OAuthController extends Controller
         return $provider;
     }
 
-    public function redirectToService(Request $request, string $provider)
+    public function redirectToService(string $provider): View|Factory|Application
     {
         $provider = $this->getValidatedProvider($provider);
         try {
@@ -50,7 +52,7 @@ class OAuthController extends Controller
         return $result;
     }
 
-    public function login(Request $request, string $provider)
+    public function login(Request $request, string $provider): Factory|View|Redirector|RedirectResponse|Application
     {
         $provider = $this->getValidatedProvider($provider);
 
@@ -96,6 +98,6 @@ class OAuthController extends Controller
         Auth::login($appAuthUser);
         $request->session()->regenerate();
 
-        return redirect(route('profile'));
+        return redirect(route('profile.show'));
     }
 }

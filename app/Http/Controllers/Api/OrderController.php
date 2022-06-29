@@ -10,7 +10,14 @@ use App\OpenApi\Parameters\OrderParameters;
 use App\OpenApi\RequestBodies\OrderRequestBody;
 use App\OpenApi\Responses\CreateOrderResponse;
 use App\OpenApi\SecuritySchemes\BearerTokenSecurityScheme;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Auth;
+use Request;
+use Throwable;
 use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 
 #[OpenApi\PathItem]
@@ -31,10 +38,21 @@ class OrderController extends Controller
         $data = $request->validated();
         try {
             $order = Order::storeNewOrder($request, $data);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return response()->json(['errors' => ['' => $e->getMessage()]], 422);
         }
-
         return OrderResource::make($order);
+    }
+
+    /**
+     * Show all user orders
+     *
+     * @param Request $request
+     * @return AnonymousResourceCollection
+     */
+    public function show(Request $request): AnonymousResourceCollection
+    {
+        $orders = Auth::user()?->orders()->orderByDesc('created_at')->paginate(5);
+        return OrderResource::collection($orders);
     }
 }

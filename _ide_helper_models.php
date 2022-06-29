@@ -121,6 +121,29 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\FavouriteProduct
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $product_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Product $product
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|FavouriteProduct newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FavouriteProduct newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FavouriteProduct query()
+ * @method static \Illuminate\Database\Eloquent\Builder|FavouriteProduct whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FavouriteProduct whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FavouriteProduct whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FavouriteProduct whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FavouriteProduct whereUserId($value)
+ */
+	class IdeHelperFavouriteProduct {}
+}
+
+namespace App\Models{
+/**
  * App\Models\News
  *
  * @property int $id
@@ -343,8 +366,12 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $discord_registered_at
  * @property \Illuminate\Support\Carbon|null $app_logged_in_at
  * @property \Illuminate\Support\Carbon|null $app_registered_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $favouriteProducts
+ * @property-read int|null $favourite_products_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read int|null $orders_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)

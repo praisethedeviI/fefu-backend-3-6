@@ -5,12 +5,13 @@ namespace Database\Factories;
 use App\Enums\ProductAttributeType;
 use App\Models\Product;
 use App\Models\ProductAttribute;
+use App\Models\ProductAttributeValue;
 use App\Models\ProductCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProductAttributeValue>
+ * @extends Factory
  */
 class ProductAttributeValueFactory extends Factory
 {

@@ -33,7 +33,7 @@ class AuthController extends Controller
         if (Auth::attempt($data, true)) {
             $request->session()->regenerate();
 
-            return redirect(route('profile'));
+            return redirect(route('profile.show'));
         }
 
         return back()->withErrors([
@@ -69,6 +69,6 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect(route('profile'));
+        return redirect(route('profile.show'));
     }
 }

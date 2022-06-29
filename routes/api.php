@@ -4,11 +4,12 @@ use App\Http\Controllers\Api\AppealController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CatalogController;
+use App\Http\Controllers\Api\FavouriteProductController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ProductController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,10 +24,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user',
-    function (Request $request) {
-        return $request->user();
-    });
+Route::middleware('auth:sanctum')->prefix('/user')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show']);
+    Route::post('/profile', [ProfileController::class, 'update']);
+    Route::get('/favourites', [FavouriteProductController::class, 'show']);
+    Route::post('/favourites/toggle_product', [FavouriteProductController::class, 'update']);
+    Route::get('/orders', [OrderController::class, 'show']);
+});
 
 Route::apiResource('news', NewsController::class)->only([
     'index',

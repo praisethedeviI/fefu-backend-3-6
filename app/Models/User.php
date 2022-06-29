@@ -8,6 +8,8 @@ use Hash;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -24,7 +26,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public static function createFromRequest($data) : self
+    public static function createFromRequest($data): self
     {
         $user = new self();
         $user->name = $data['name'] ?? null;
@@ -36,7 +38,7 @@ class User extends Authenticatable
         return $user;
     }
 
-    public function updateFromRequest($data) : self
+    public function updateFromRequest($data): self
     {
         $this->password = Hash::make($data['password']);
         $this->app_registered_at = Carbon::now();
@@ -90,4 +92,14 @@ class User extends Authenticatable
         'discord_logged_in_at' => 'datetime',
         'discord_registered_at' => 'datetime',
     ];
+
+    public function favouriteProducts(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'favourite_products');
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
 }

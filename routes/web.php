@@ -4,6 +4,7 @@ use App\Http\Controllers\Web\AppealController;
 use App\Http\Controllers\Web\AuthController;
 use App\Http\Controllers\Web\CartController;
 use App\Http\Controllers\Web\CatalogController;
+use App\Http\Controllers\Web\FavouriteProductController;
 use App\Http\Controllers\Web\NewsController;
 use App\Http\Controllers\Web\OAuthController;
 use App\Http\Controllers\Web\OrderController;
@@ -38,9 +39,12 @@ Route::get('/catalog/{slug?}', [CatalogController::class, 'index'])->name('catal
 Route::get('/appeal', [AppealController::class, 'form'])->name('appeal.form');
 Route::post('/appeal', [AppealController::class, 'send'])->name('appeal.send');
 
-Route::get('/profile', [ProfileController::class, 'show'])
-    ->middleware('auth')
-    ->name('profile');
+Route::prefix('/user')->middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/orders', [OrderController::class, 'index'])->name('profile.orders');
+    Route::get('/favourites', [FavouriteProductController::class, 'show'])->name('profile.favourite');
+});
 
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
