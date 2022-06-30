@@ -1,8 +1,7 @@
 <?php
 
-namespace App\OpenApi\Responses\Product;
+namespace App\OpenApi\Responses;
 
-use App\OpenApi\Schemas\FilterSchema;
 use App\OpenApi\Schemas\ListProductSchema;
 use App\OpenApi\Schemas\PaginatorLinksSchema;
 use App\OpenApi\Schemas\PaginatorMetaSchema;
@@ -11,7 +10,7 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Vyuldashev\LaravelOpenApi\Factories\ResponseFactory;
 
-class ListProductResponse extends ResponseFactory
+class FavouriteProductResponse extends ResponseFactory
 {
     public function build(): Response
     {
@@ -20,9 +19,6 @@ class ListProductResponse extends ResponseFactory
                 Schema::array('data')->items(ListProductSchema::ref()),
                 PaginatorLinksSchema::ref('links'),
                 PaginatorMetaSchema::ref('meta'),
-                Schema::array('filters')->items(
-                    FilterSchema::ref()
-                )
             ))
         );
     }

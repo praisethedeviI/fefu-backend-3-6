@@ -8,11 +8,10 @@ use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\OpenApi\Parameters\OrderParameters;
 use App\OpenApi\RequestBodies\OrderRequestBody;
+use App\OpenApi\Responses\Auth\UnauthenticatedResponse;
 use App\OpenApi\Responses\CreateOrderResponse;
+use App\OpenApi\Responses\UserOrdersResponse;
 use App\OpenApi\SecuritySchemes\BearerTokenSecurityScheme;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +23,7 @@ use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 class OrderController extends Controller
 {
     /**
-     * Create and return an order
+     * Create and return an order.
      *
      * @param StoreOrderRequest $request
      * @return OrderResource|JsonResponse
@@ -45,12 +44,14 @@ class OrderController extends Controller
     }
 
     /**
-     * Show all user orders
+     * Show all user orders with pagination.
      *
-     * @param Request $request
      * @return AnonymousResourceCollection
      */
-    public function show(Request $request): AnonymousResourceCollection
+    #[OpenApi\Operation(tags: ['profile', 'order'], security: BearerTokenSecurityScheme::class, method: 'GET')]
+    #[OpenApi\Response(factory: UserOrdersResponse::class, statusCode: 200)]
+    #[OpenApi\Response(factory: UnauthenticatedResponse::class, statusCode: 401)]
+    public function show(): AnonymousResourceCollection
     {
         $orders = Auth::user()?->orders()->orderByDesc('created_at')->paginate(5);
         return OrderResource::collection($orders);

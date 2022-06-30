@@ -3,23 +3,33 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\DetailedProductResource;
 use App\Http\Resources\ListProductCollection;
 use App\Http\Resources\ListProductResource;
 use App\Models\FavouriteProduct;
 use App\Models\Product;
 use App\Models\User;
+use App\OpenApi\Parameters\ToggleFavouriteProductParameters;
+use App\OpenApi\Responses\Auth\UnauthenticatedResponse;
+use App\OpenApi\Responses\FavouriteProductResponse;
+use App\OpenApi\SecuritySchemes\BearerTokenSecurityScheme;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\HigherOrderTapProxy;
+use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 
+#[OpenApi\PathItem]
 class FavouriteProductController extends Controller
 {
     /**
+     * Return all favourite products with pagination.
+     *
      * @return ListProductCollection|AnonymousResourceCollection|HigherOrderTapProxy|mixed
      */
+    #[OpenApi\Operation(tags: ['profile', 'favourite_product'], security: BearerTokenSecurityScheme::class, method: 'GET')]
+    #[OpenApi\Response(factory: FavouriteProductResponse::class, statusCode: 200)]
+    #[OpenApi\Response(factory: UnauthenticatedResponse::class, statusCode: 401)]
     public function show(): mixed
     {
         /** @var User $user */
@@ -32,9 +42,15 @@ class FavouriteProductController extends Controller
     }
 
     /**
+     * Toggle favourite product by slug or id of product.
+     *
      * @param Request $request
      * @return ListProductCollection|AnonymousResourceCollection|HigherOrderTapProxy|mixed
      */
+    #[OpenApi\Operation(tags: ['profile', 'favourite_product'], security: BearerTokenSecurityScheme::class, method: 'POST')]
+    #[OpenApi\Response(factory: FavouriteProductResponse::class, statusCode: 200)]
+    #[OpenApi\Response(factory: UnauthenticatedResponse::class, statusCode: 401)]
+    #[OpenApi\Parameters(factory: ToggleFavouriteProductParameters::class)]
     public function update(Request $request): mixed
     {
         $validated = $request->validate([
