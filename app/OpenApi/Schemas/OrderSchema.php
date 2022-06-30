@@ -24,6 +24,7 @@ class OrderSchema extends SchemaFactory implements Reusable
                 Schema::string('customer_email'),
                 Schema::string('payment_method'),
                 Schema::string('delivery_type'),
+                Schema::string('delivery_date')->format(Schema::FORMAT_DATE_TIME),
                 CartSchema::ref(),
                 Schema::object('address')->nullable()->properties(
                     Schema::string('city'),

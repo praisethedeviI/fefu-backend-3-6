@@ -55,6 +55,14 @@ return [
                     'name' => 'order',
                     'description' => 'Order'
                 ],
+                [
+                    'name' => 'profile',
+                    'description' => 'Profile'
+                ],
+                [
+                    'name' => 'favourite_product',
+                    'description' => 'Favourite product'
+                ],
 
             ],
 

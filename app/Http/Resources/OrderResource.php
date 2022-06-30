@@ -5,7 +5,10 @@ namespace App\Http\Resources;
 use App\Enums\DeliveryType;
 use App\Enums\PaymentMethod;
 use App\Models\Order;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use JsonSerializable;
 
 /**
  * @mixin Order
@@ -15,8 +18,8 @@ class OrderResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @param Request $request
+     * @return array|Arrayable|JsonSerializable
      */
     public function toArray($request)
     {
@@ -25,17 +28,13 @@ class OrderResource extends JsonResource
             'customer_email' => $this->customer_email,
             'payment_method' => PaymentMethod::keyByValue($this->payment_method),
             'delivery_type' => DeliveryType::keyByValue($this->delivery_type),
+            'delivery_date' => $this->created_at,
             'cart' => CartResource::make($this->cart),
         ];
         $address = $this->address;
         if ($address !== null) {
             $result += [
-                'address' => [
-                    'city' => $address->city,
-                    'street' => $address->street,
-                    'house' => $address->house,
-                    'apartment' => $address->apartment,
-                ]
+                'address' => AddressResource::make($address)
             ];
         }
         return $result;

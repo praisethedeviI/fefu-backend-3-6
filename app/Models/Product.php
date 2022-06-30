@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\ProductSortType;
 use App\Http\Filters\ProductFilter;
+use Auth;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
@@ -50,6 +51,17 @@ class Product extends Model
     public function scopeSearch(Builder $builder, string $search_query): Builder
     {
         return $builder->where('products.name', 'ilike', "%$search_query%");
+    }
+
+    public function isFavourite(): bool
+    {
+        /** @var User $user */
+        $user = Auth::user();
+        if ($user === null) {
+            return false;
+        }
+        $productsIds = FavouriteProduct::query()->where('user_id', $user->id)->get()->pluck('product_id')->all();
+        return in_array($this->id, $productsIds, true);
     }
 
     /**

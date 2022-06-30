@@ -3,10 +3,11 @@
 namespace Database\Factories;
 
 use App\Enums\ProductAttributeType;
+use App\Models\ProductAttribute;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProductAttribute>
+ * @extends Factory
  */
 class ProductAttributeFactory extends Factory
 {

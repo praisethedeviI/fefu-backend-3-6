@@ -10,6 +10,354 @@
         }
     ],
     "paths": {
+        "\/api\/user\/profile": {
+            "get": {
+                "tags": [
+                    "profile"
+                ],
+                "summary": "Return current user info.",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "github_logged_in_at": {
+                                            "format": "date-time",
+                                            "type": "string"
+                                        },
+                                        "github_registered_at": {
+                                            "format": "date-time",
+                                            "type": "string"
+                                        },
+                                        "discord_logged_in_at": {
+                                            "format": "date-time",
+                                            "type": "string"
+                                        },
+                                        "discord_registered_at": {
+                                            "format": "date-time",
+                                            "type": "string"
+                                        },
+                                        "app_logged_in_at": {
+                                            "format": "date-time",
+                                            "type": "string"
+                                        },
+                                        "app_registered_at": {
+                                            "format": "date-time",
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Failed response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "default": "Unauthenticated.",
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "profile"
+                ],
+                "summary": "Update email and nickname of user.",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "github_logged_in_at": {
+                                            "format": "date-time",
+                                            "type": "string"
+                                        },
+                                        "github_registered_at": {
+                                            "format": "date-time",
+                                            "type": "string"
+                                        },
+                                        "discord_logged_in_at": {
+                                            "format": "date-time",
+                                            "type": "string"
+                                        },
+                                        "discord_registered_at": {
+                                            "format": "date-time",
+                                            "type": "string"
+                                        },
+                                        "app_logged_in_at": {
+                                            "format": "date-time",
+                                            "type": "string"
+                                        },
+                                        "app_registered_at": {
+                                            "format": "date-time",
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Failed response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "default": "Unauthenticated.",
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ]
+            }
+        },
+        "\/api\/user\/favourites": {
+            "get": {
+                "tags": [
+                    "profile",
+                    "favourite_product"
+                ],
+                "summary": "Return all favourite products with pagination.",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/ListProduct"
+                                            }
+                                        },
+                                        "links": {
+                                            "$ref": "#\/components\/schemas\/PaginatorLinks"
+                                        },
+                                        "meta": {
+                                            "$ref": "#\/components\/schemas\/PaginatorMeta"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Failed response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "default": "Unauthenticated.",
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ]
+            }
+        },
+        "\/api\/user\/favourites\/toggle_product": {
+            "post": {
+                "tags": [
+                    "profile",
+                    "favourite_product"
+                ],
+                "summary": "Toggle favourite product by slug or id of product.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "slug",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/ListProduct"
+                                            }
+                                        },
+                                        "links": {
+                                            "$ref": "#\/components\/schemas\/PaginatorLinks"
+                                        },
+                                        "meta": {
+                                            "$ref": "#\/components\/schemas\/PaginatorMeta"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Failed response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "default": "Unauthenticated.",
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ]
+            }
+        },
+        "\/api\/user\/orders": {
+            "get": {
+                "tags": [
+                    "profile",
+                    "order"
+                ],
+                "summary": "Show all user orders with pagination.",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/Order"
+                                            }
+                                        },
+                                        "links": {
+                                            "$ref": "#\/components\/schemas\/PaginatorLinks"
+                                        },
+                                        "meta": {
+                                            "$ref": "#\/components\/schemas\/PaginatorMeta"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Failed response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "default": "Unauthenticated.",
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ]
+            }
+        },
         "\/api\/news": {
             "get": {
                 "tags": [
@@ -347,7 +695,7 @@
                 "tags": [
                     "order"
                 ],
-                "summary": "Create and return an order",
+                "summary": "Create and return an order.",
                 "parameters": [
                     {
                         "name": "customer_email",
@@ -1023,6 +1371,10 @@
                     "delivery_type": {
                         "type": "string"
                     },
+                    "delivery_date": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
                     "": {
                         "$ref": "#\/components\/schemas\/Cart"
                     },
@@ -1167,6 +1519,14 @@
         {
             "name": "order",
             "description": "Order"
+        },
+        {
+            "name": "profile",
+            "description": "Profile"
+        },
+        {
+            "name": "favourite_product",
+            "description": "Favourite product"
         }
     ]
 }

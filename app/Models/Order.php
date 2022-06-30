@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use RuntimeException;
 
 /**
  * @mixin IdeHelperOrder
@@ -22,7 +23,7 @@ class Order extends Model
 
         $cart = Cart::getOrCreateCart($user, null);
         if($cart->isEmpty()) {
-            throw new Exception('Cart is empty', 404);
+            throw new RuntimeException('Cart is empty', 404);
         }
 
         $address = null;
@@ -55,5 +56,10 @@ class Order extends Model
     public function address(): BelongsTo
     {
         return $this->belongsTo(Address::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
