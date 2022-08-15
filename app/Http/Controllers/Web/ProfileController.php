@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BaseUpdateProfileFormRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Settings;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -18,7 +19,10 @@ class ProfileController extends Controller
 {
     public function show(Request $request): Factory|View|Application
     {
-        return view('profile.index', ['user' => (new UserResource(Auth::user()))->toArray($request)]);
+        return view('profile.index', [
+            'user' => (new UserResource(Auth::user()))->toArray($request),
+            'settings' => app(Settings::class),
+        ]);
     }
 
     public function update(BaseUpdateProfileFormRequest $request): Redirector|Application|RedirectResponse
