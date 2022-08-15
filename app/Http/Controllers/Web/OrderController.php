@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Resources\OrderResource;
+use App\Mail\OrderCreated;
 use App\Models\Order;
 use App\Models\User;
 use Auth;
@@ -26,10 +27,12 @@ class OrderController extends Controller
     {
         $data = $request->validated();
         try {
-            Order::storeNewOrder($request, $data);
+            $order = Order::storeNewOrder($request, $data);
         } catch (Throwable $e) {
             return back()->withErrors(['' => $e->getMessage()]);
         }
+
+        \Mail::to($order->customer_email)->queue(new OrderCreated($order));
 
         return redirect(route('profile.show'));
     }

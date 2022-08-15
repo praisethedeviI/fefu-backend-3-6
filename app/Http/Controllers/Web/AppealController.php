@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BaseAppealFormRequest;
+use App\Mail\AppealCreated;
 use App\Models\Appeal;
+use App\Models\Settings;
 use App\Sanitizers\PhoneSanitizer;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use Mail;
 
 class AppealController extends Controller
 {
@@ -40,6 +43,8 @@ class AppealController extends Controller
         $appeal->email = $data['email'];
         $appeal->message = $data['message'];
         $appeal->save();
+
+        Mail::to(app()->make(Settings::class)->admin_email)->queue(new AppealCreated($appeal));
 
         return redirect(route('appeal.form'))->with(['success' => true]);
     }

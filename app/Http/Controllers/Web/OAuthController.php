@@ -37,7 +37,7 @@ class OAuthController extends Controller
         return $provider;
     }
 
-    public function redirectToService(string $provider): View|Factory|Application
+    public function redirectToService(string $provider)
     {
         $provider = $this->getValidatedProvider($provider);
         try {
