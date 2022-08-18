@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::query()->delete();
+        User::query()->truncate();
         User::factory(random_int(50, 100))->create();
     }
 }

@@ -19,7 +19,7 @@ class FavouriteProductSeeder extends Seeder
      */
     public function run()
     {
-        FavouriteProduct::query()->delete();
+        FavouriteProduct::query()->truncate();
 
         $productIds = Product::query()->pluck('id');
         $userIds = User::query()->limit(10)->pluck('id');

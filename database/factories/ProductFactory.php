@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
 class ProductFactory extends Factory
 {
     private $categoryIds;
+    public static $rowNumber = 0;
 
     public function __construct($count = null, ?Collection $states = null, ?Collection $has = null, ?Collection $for = null, ?Collection $afterMaking = null, ?Collection $afterCreating = null, $connection = null)
     {
@@ -27,11 +28,14 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+        self::$rowNumber++;
         return [
             'name' => $this->faker->word,
             'description' => $this->faker->realTextBetween(50, 150),
             'price' => $this->faker->randomFloat(8, 100, 10000),
             'product_category_id' => $this->faker->randomElement($this->categoryIds),
+            'external_id' => 'fake_external_id' . self::$rowNumber,
+            'is_present_in_external_sources' => true,
         ];
     }
 }

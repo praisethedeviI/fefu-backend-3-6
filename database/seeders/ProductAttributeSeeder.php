@@ -16,7 +16,7 @@ class ProductAttributeSeeder extends Seeder
      */
     public function run()
     {
-        ProductAttribute::query()->delete();
+        ProductAttribute::query()->truncate();
         ProductAttribute::factory(random_int(20, 30))->create();
     }
 }

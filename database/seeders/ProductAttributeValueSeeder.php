@@ -21,7 +21,7 @@ class ProductAttributeValueSeeder extends Seeder
      */
     public function run()
     {
-        ProductAttributeValue::query()->delete();
+        ProductAttributeValue::query()->truncate();
 
         $products = Product::get();
         $attributes = ProductAttribute::get();
