@@ -116,7 +116,9 @@ final class ExternalSyncClient
             $product->externalProductCategoryId = $item['category_external_id'];
             $product->name = $item['name'];
             $product->price = (int)$item['price'];
+            $product->isDeleted = false;
             $product->description = $item['description'];
+            $product->attributeValues = [];
 
             foreach ($item['attribute_values'] as $itemAttributeValue) {
                 $attributeValue = new ExternalProductAttributeValue();
