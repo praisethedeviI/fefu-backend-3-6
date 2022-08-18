@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ProductCategoryFactory extends Factory
 {
+    public static $rowNumber = 0;
+
     /**
      * Define the model's default state.
      *
@@ -17,9 +19,11 @@ class ProductCategoryFactory extends Factory
      */
     public function definition()
     {
+        self::$rowNumber++;
         return [
             'name' => $this->faker->word,
-
+            'external_id' => 'fake_external_id' . self::$rowNumber,
+            'is_present_in_external_sources' => true,
         ];
     }
 

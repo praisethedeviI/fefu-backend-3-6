@@ -15,7 +15,7 @@ class PageSeeder extends Seeder
      */
     public function run()
     {
-        Page::query()->delete();
+        Page::query()->truncate();
         Page::factory(random_int(20, 30))->create();
     }
 }

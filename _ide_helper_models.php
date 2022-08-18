@@ -187,6 +187,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Address|null $address
  * @property-read \App\Models\Cart $cart
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\CartItem[] $items
+ * @property-read int|null $items_count
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
@@ -243,6 +245,8 @@ namespace App\Models{
  * @property int $product_category_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $external_id
+ * @property bool $is_present_in_external_sources
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductAttributeValue[] $attributeValues
  * @property-read int|null $attribute_values_count
  * @property-read \App\Models\ProductCategory $productCategory
@@ -256,7 +260,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Product search(string $search_query)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereExternalId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereIsPresentInExternalSources($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereProductCategoryId($value)
@@ -277,12 +283,16 @@ namespace App\Models{
  * @property int $sort_order
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $external_id
+ * @property bool $is_present_in_external_sources
  * @method static \Database\Factories\ProductAttributeFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductAttribute newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductAttribute newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductAttribute query()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductAttribute whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductAttribute whereExternalId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductAttribute whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductAttribute whereIsPresentInExternalSources($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductAttribute whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductAttribute whereSortOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductAttribute whereType($value)
@@ -327,6 +337,8 @@ namespace App\Models{
  * @property int|null $parent_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $external_id
+ * @property bool $is_present_in_external_sources
  * @property-read \Illuminate\Database\Eloquent\Collection|ProductCategory[] $children
  * @property-read int|null $children_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
@@ -337,7 +349,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory query()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereExternalId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereIsPresentInExternalSources($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereParentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereSlug($value)
@@ -345,6 +359,29 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
  */
 	class IdeHelperProductCategory {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Settings
+ *
+ * @property int $id
+ * @property string $admin_email
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string $external_sync_url
+ * @property int $external_sync_products_update_token
+ * @method static \Illuminate\Database\Eloquent\Builder|Settings newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Settings newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Settings query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Settings whereAdminEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Settings whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Settings whereExternalSyncProductsUpdateToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Settings whereExternalSyncUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Settings whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Settings whereUpdatedAt($value)
+ */
+	class IdeHelperSettings {}
 }
 
 namespace App\Models{

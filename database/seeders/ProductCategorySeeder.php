@@ -17,7 +17,7 @@ class ProductCategorySeeder extends Seeder
      */
     public function run()
     {
-        ProductCategory::query()->delete();
+        ProductCategory::query()->truncate();
         $this->seedChildren(ProductCategory::factory(random_int(1, 3))->create()->pluck('id'));
     }
 

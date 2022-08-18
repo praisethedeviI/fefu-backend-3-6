@@ -11,7 +11,7 @@ abstract class AbstractEnum
         return (new ReflectionClass(static::class))->getConstants();
     }
 
-    public static function keyToValue($key)
+    public static function keyToValue($key): int|null
     {
         return self::getConstants()[strtoupper($key)] ?? null;
     }

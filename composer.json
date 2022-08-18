@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "ext-curl": "*",
         "cviebrock/eloquent-sluggable": "^9.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.2",
@@ -14,7 +15,8 @@
         "laravel/tinker": "^2.7",
         "socialiteproviders/discord": "^4.1",
         "socialiteproviders/github": "^4.1",
-        "vyuldashev/laravel-openapi": "^1.5"
+        "vyuldashev/laravel-openapi": "^1.5",
+      "ext-http": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12",

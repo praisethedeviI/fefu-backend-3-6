@@ -1,0 +1,47 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('product_attributes', function (Blueprint $table) {
+            $table->string('external_id')->unique()->nullable();
+            $table->boolean('is_present_in_external_sources')->default(false);
+        });
+        Schema::table('product_categories', function (Blueprint $table) {
+            $table->string('external_id')->unique()->nullable();
+            $table->boolean('is_present_in_external_sources')->default(false);
+        });
+        Schema::table('products', function (Blueprint $table) {
+            $table->string('external_id')->unique()->nullable();
+            $table->boolean('is_present_in_external_sources')->default(false);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('product_attributes', function (Blueprint $table) {
+            $table->dropColumn(['external_id', 'is_present_in_external_sources']);
+        });
+        Schema::table('product_categories', function (Blueprint $table) {
+            $table->dropColumn(['external_id', 'is_present_in_external_sources']);
+        });
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn(['external_id', 'is_present_in_external_sources']);
+        });
+    }
+};

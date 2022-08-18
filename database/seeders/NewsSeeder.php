@@ -15,7 +15,7 @@ class NewsSeeder extends Seeder
      */
     public function run()
     {
-        News::query()->delete();
+        News::query()->truncate();
         News::factory(random_int(50, 100))->create();
     }
 }

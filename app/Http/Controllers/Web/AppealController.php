@@ -44,7 +44,7 @@ class AppealController extends Controller
         $appeal->message = $data['message'];
         $appeal->save();
 
-        Mail::to(app()->make(Settings::class)->admin_email)->queue(new AppealCreated($appeal));
+        Mail::to(app(Settings::class)->admin_email)->queue(new AppealCreated($appeal));
 
         return redirect(route('appeal.form'))->with(['success' => true]);
     }

@@ -40,7 +40,7 @@ class AppealController extends Controller
         $appeal->message = $data['message'];
         $appeal->save();
 
-        Mail::to(app()->make(Settings::class)->admin_email)->queue(new AppealCreated($appeal));
+        Mail::to(app(Settings::class)->admin_email)->queue(new AppealCreated($appeal));
 
         return response()->json([
             'message' => 'Appeal successfully sent'

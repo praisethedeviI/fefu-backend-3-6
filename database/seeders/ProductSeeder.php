@@ -15,7 +15,7 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        Product::query()->delete();
+        Product::query()->truncate();
         Product::factory(random_int(50, 100))->create();
     }
 }
