@@ -12,4 +12,6 @@ final class ExternalProduct extends ExternalEntity
     public string $description;
     /** @var ExternalProductAttributeValue[] */
     public array $attributeValues;
+
+    public bool $isDeleted;
 }
